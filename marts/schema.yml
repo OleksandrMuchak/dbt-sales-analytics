@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: fct_sales
+    description: "Fact table with detailed sales data."
+    columns:
+      - name: reference_id
+        description: "The unique identifier for a sale."
+        tests:
+          - unique
+          - not_null
+
+      - name: order_date_kyiv
+        description: "The timestamp when the order was placed in Kyiv time."
+        tests:
+          - not_null
