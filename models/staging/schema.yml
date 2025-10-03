@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: stg_sales_data
+    description: ""
+    columns:
+      - name: reference_id
+        description: ""
+        tests:
+          - not_null
+      
+      - name: product_name
+        description: ""
+        tests:
+          - not_null
+      
+      - name: country
+        description: ""
+        tests:
+          - not_null
+      
+      - name: order_date_kyiv
+        description: ""
+        tests:
+          - not_null
+      
+      - name: total_amount
+        description: ""
+        tests:
+          - not_null
+      
+      - name: discount_amount
+        description: ""
+        tests:
+          - not_null
+      
+      - name: number_of_rebills
+        description: ""
+        tests:
+          - not_null
+      
+      - name: original_amount
+        description: ""
+      
+      - name: sales_agent_name
+        description: ""
+        tests:
+          - not_null
+      
+      - name: source
+        description: ""
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Call', 'Chat', 'From Support', 'Ticket', 'N/A']
+      
+      - name: has_chargeback
+        description: ""
+        tests:
+          - accepted_values:
+              values: ['Yes', 'No']
+      
+      - name: has_refund
+        description: ""
+        tests:
+          - accepted_values:
+              values: ['Yes', 'No']

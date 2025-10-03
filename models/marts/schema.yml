@@ -2,11 +2,104 @@ version: 2
 
 models:
   - name: fct_sales
+    description: ""
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "total_revenue >= 0"
+          config:
+            severity: error
+      
+      - dbt_utils.expression_is_true:
+          expression: "returned_amount <= (total_amount + rebill_revenue)"
+          config:
+            severity: error
+      
+      - dbt_utils.expression_is_true:
+          expression: "(return_date_kyiv IS NULL) OR (return_date_kyiv IS NOT NULL AND returned_amount > 0)"
+          config:
+            severity: warn
+      
+      - dbt_utils.expression_is_true:
+          expression: "(return_date_kyiv IS NULL) OR (return_date_kyiv >= order_date_kyiv)"
+          config:
+            severity: warn
+      
+      - dbt_utils.expression_is_true:
+          expression: "(number_of_rebills = 0 AND rebill_revenue = 0) OR (number_of_rebills > 0 AND rebill_revenue > 0)"
+          config:
+            severity: warn
+      
+      - dbt_utils.expression_is_true:
+          expression: "discount_amount <= total_amount + discount_amount"
+          config:
+            severity: error
+      
+      - dbt_utils.expression_is_true:
+          expression: "days_to_return IS NULL OR days_to_return >= 0"
+          config:
+            severity: error
+    
     columns:
       - name: reference_id
+        description: ""
         tests:
+          - not_null
           - unique
-          - not_null
-      - name: order_date_kyiv
+      
+      - name: product_name
+        description: ""
         tests:
           - not_null
+      
+      - name: sales_agents_list
+        description: ""
+        tests:
+          - not_null
+      
+      - name: country
+        description: ""
+        tests:
+          - not_null
+      
+      - name: campaign_name
+        description: ""
+        tests:
+          - not_null
+      
+      - name: source
+        description: ""
+        tests:
+          - not_null
+      
+      - name: total_revenue
+        description: ""
+        tests:
+          - not_null
+      
+      - name: rebill_revenue
+        description: ""
+        tests:
+          - not_null
+      
+      - name: number_of_rebills
+        description: ""
+        tests:
+          - not_null
+      
+      - name: discount_amount
+        description: ""
+        tests:
+          - not_null
+      
+      - name: returned_amount
+        description: ""
+        tests:
+          - not_null
+      
+      - name: order_date_kyiv
+        description: ""
+        tests:
+          - not_null
+      
+      - name: days_to_return
+        description: ""
