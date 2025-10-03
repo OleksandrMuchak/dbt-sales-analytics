@@ -5,7 +5,7 @@ config-version: 2
 profile: 'sales_analytics_project'
 
 model-paths: ["models"]
-analysis-paths: ["analyses"]
+#analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
