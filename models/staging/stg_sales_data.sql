@@ -1,3 +1,4 @@
+-- models/staging/stg_sales_data.sql
 with source as (
     select * from {{ ref('sales_data') }}
 ),
@@ -7,12 +8,13 @@ renamed as (
         "Country" as country,
         "Product Code" as product_code,
         coalesce("Product Name", 'N/A') as product_name,
-        "Subscription Start Date"::timestamp as subscription_start_date,
-        "Subscription Deactivation Date"::timestamp as subscription_deactivation_date,
+        -- ВИПРАВЛЕНО: Використовуємо strptime для правильного парсингу дат
+        strptime("Subscription Start Date", '%B %d, %Y, %I:%M %p') as subscription_start_date,
+        strptime("Subscription Deactivation Date", '%B %d, %Y, %I:%M %p') as subscription_deactivation_date,
         "Subscription Duration Months"::integer as subscription_duration_months,
-        "Order Date Kyiv"::timestamp as order_date_kyiv,
-        "Return Date Kyiv"::timestamp as return_date_kyiv,
-        "Last Rebill Date Kyiv"::timestamp as last_rebill_date_kyiv,
+        strptime("Order Date Kyiv", '%B %d, %Y, %I:%M %p') as order_date_kyiv,
+        strptime("Return Date Kyiv", '%B %d, %Y, %I:%M %p') as return_date_kyiv,
+        strptime("Last Rebill Date Kyiv", '%B %d, %Y, %I:%M %p') as last_rebill_date_kyiv,
         "Has Chargeback" as has_chargeback,
         "Has Refund" as has_refund,
         coalesce("Sales Agent Name", 'N/A') as sales_agent_name,
